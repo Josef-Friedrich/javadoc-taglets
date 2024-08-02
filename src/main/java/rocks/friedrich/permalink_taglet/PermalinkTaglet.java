@@ -14,6 +14,7 @@ import static jdk.javadoc.doclet.Taglet.Location.*;
 /**
  *
  * @permalink https://github.com/Josef-Friedrich/permalink-javadoc-taglet/blob/e5bfad79e3544aeb80f2b8d761241011123e8325/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L17
+ *            Link text
  */
 public class PermalinkTaglet implements Taglet
 {
@@ -21,16 +22,15 @@ public class PermalinkTaglet implements Taglet
 
     protected String genLink(String text)
     {
-        String relativePath = text;
+        String url = text;
         String display = text;
         int firstSpace = text.indexOf(' ');
         if (firstSpace != -1)
         {
-            relativePath = text.substring(0, firstSpace);
+            url = text.substring(0, firstSpace);
             display = text.substring(firstSpace).trim();
         }
-        return String.format("<a href='%s%s'>%s</a>", "", relativePath,
-                display);
+        return String.format("<a href='%s'>%s</a>", url, display);
     }
 
     @Override
@@ -46,12 +46,19 @@ public class PermalinkTaglet implements Taglet
                 FIELD);
     }
 
+    /**
+     * @permalink https://github.com/Josef-Friedrich/permalink-javadoc-taglet/blob/e5bfad79e3544aeb80f2b8d761241011123e8325/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L17
+     * @permalink https://github.com/Josef-Friedrich/permalink-javadoc-taglet/blob/e5bfad79e3544aeb80f2b8d761241011123e8325/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L17
+     */
     @Override
     public boolean isInlineTag()
     {
         return false;
     }
 
+    /**
+     * @permalink https://github.com/Josef-Friedrich/permalink-javadoc-taglet/blob/e5bfad79e3544aeb80f2b8d761241011123e8325/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L17
+     */
     @Override
     public String toString(List<? extends DocTree> tags, Element element)
     {
@@ -59,8 +66,8 @@ public class PermalinkTaglet implements Taglet
         {
             return null;
         }
-        StringBuilder buf = new StringBuilder(String
-                .format("<dl><dt><span class=\"strong\">%s</span></dt>", ""));
+        StringBuilder buf = new StringBuilder(
+                "<dl class=\"notes\"><dt>Permalink:</dt>");
         for (DocTree tag : tags)
         {
             String text = ((UnknownBlockTagTree) tag).getContent().get(0)
