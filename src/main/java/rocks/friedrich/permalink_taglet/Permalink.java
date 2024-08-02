@@ -11,6 +11,14 @@ public class Permalink
 
     private LineRange lineRange;
 
+    private String host;
+
+    private String owner;
+
+    private String repo;
+
+    private String file;
+
     public Permalink(String tagText) throws MalformedURLException
     {
         String url = tagText;
@@ -23,6 +31,12 @@ public class Permalink
         }
         this.url = new URL(url);
         this.display = display;
+        // junit-team/junit5-samples/blob/425c27ecd9cefee5a1459e4cc9efd1c8390836e3/junit5-jupiter-starter-maven/pom.xml#L7
+        String path = this.url.getPath();
+        String[] pathSegments = path.split("/");
+        owner = pathSegments[0];
+        repo = pathSegments[1];
+        // "[0-9a-f]{40}";
         String ref = this.url.getRef();
         if (ref != null)
         {
