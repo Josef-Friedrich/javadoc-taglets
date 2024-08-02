@@ -1,3 +1,3 @@
 # permalink-javadoc-taglet
 
-Javadoc  @permalink
+Provides a @permalink tag for Javadoc to display formatted Github (or similar platforms) permalinks.

@@ -1,115 +1,164 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <groupId>rocks.friedrich</groupId>
-    <artifactId>permalink-taglet</artifactId>
-    <version>0.1.0</version>
+  <groupId>rocks.friedrich</groupId>
+  <artifactId>permalink-taglet</artifactId>
+  <version>0.1.0</version>
 
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+  <description>Provides a @permalink tag for Javadoc to display formatted Github (or similar platforms) permalinks.</description>
+  <url>https://github.com/Josef-Friedrich/permalink-javadoc-taglet</url>
+  <licenses>
+    <license>
+      <name>The GNU General Public License, Version 3.0</name>
+      <url>https://www.gnu.org/licenses/gpl-3.0.txt</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <name>Josef Friedrich</name>
+      <email>josef@friedrich.rocks</email>
+      <organizationUrl>https://josef.friedrich.rocks</organizationUrl>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:git://github.com/Josef-Friedrich/permalink-javadoc-taglet.git</connection>
+    <developerConnection>scm:git:ssh://github.com:Josef-Friedrich/permalink-javadoc-taglet.git</developerConnection>
+    <url>https://github.com/Josef-Friedrich/permalink-javadoc-taglet</url>
+  </scm>
 
+  <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.junit</groupId>
-                <artifactId>junit-bom</artifactId>
-                <version>5.10.3</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
+  <dependencyManagement>
     <dependencies>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <scope>test</scope>
-        </dependency>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>5.10.3</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
     </dependencies>
+  </dependencyManagement>
 
+  <dependencies>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.3.0</version>
+      </plugin>
+      <!--
+      https://code.revelc.net/formatter-maven-plugin/examples.html#basic-configuration-using-external-resource -->
+      <plugin>
+        <groupId>net.revelc.code.formatter</groupId>
+        <artifactId>formatter-maven-plugin</artifactId>
+        <version>2.24.1</version>
+        <dependencies>
+          <dependency>
+            <groupId>de.pirckheimer-gymnasium</groupId>
+            <artifactId>engine-pi</artifactId>
+            <version>0.27.0</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <goals>
+              <goal>format</goal>
+            </goals>
+            <configuration>
+              <configFile>eclipse-formatter.xml</configFile>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.8.0</version>
+        <configuration>
+          <!-- to disable the "missing" warnings -->
+          <doclint>all,-missing</doclint>
+          <!--
+          https://maven.apache.org/plugins/maven-javadoc-plugin/examples/tag-configuration.html -->
+          <tags>
+            <tag>
+              <name>warning</name>
+              <placement>a</placement>
+              <head>warning:</head>
+            </tag>
+          </tags>
 
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.3.0</version>
-            </plugin>
-        <!--
-        https://code.revelc.net/formatter-maven-plugin/examples.html#basic-configuration-using-external-resource -->
-            <plugin>
-                <groupId>net.revelc.code.formatter</groupId>
-                <artifactId>formatter-maven-plugin</artifactId>
-                <version>2.24.1</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>de.pirckheimer-gymnasium</groupId>
-                        <artifactId>engine-pi</artifactId>
-                        <version>0.27.0</version>
-                    </dependency>
-                </dependencies>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>format</goal>
-                        </goals>
-                        <configuration>
-                            <configFile>eclipse-formatter.xml</configFile>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.8.0</version>
-                <configuration>
-                    <!-- to disable the "missing" warnings -->
-                    <doclint>all,-missing</doclint>
-                    <!--
-                             https://maven.apache.org/plugins/maven-javadoc-plugin/examples/tag-configuration.html -->
-                    <tags>
-                        <tag>
-                            <name>warning</name>
-                            <placement>a</placement>
-                            <head>warning:</head>
-                        </tag>
-                    </tags>
+          <!--
+          https://maven.apache.org/plugins/maven-javadoc-plugin/examples/taglet-configuration.html -->
+          <taglet>rocks.friedrich.permalink_taglet.PermalinkTaglet</taglet>
+          <tagletpath>target/permalink-taglet-${project.version}.jar</tagletpath>
+          <tagletArtifact>
+            <groupId>rocks.friedrich</groupId>
+            <artifactId>permalink-taglet</artifactId>
+            <version>${project.version}</version>
+          </tagletArtifact>
 
-                    <!-- https://maven.apache.org/plugins/maven-javadoc-plugin/examples/taglet-configuration.html -->
-                    <taglet>rocks.friedrich.permalink_taglet.PermalinkTaglet</taglet>
-                    <tagletpath>target/permalink-taglet-${project.version}.jar</tagletpath>
-                    <tagletArtifact>
-                        <groupId>rocks.friedrich</groupId>
-                        <artifactId>permalink-taglet</artifactId>
-                        <version>${project.version}</version>
-                    </tagletArtifact>
+        </configuration>
 
-                </configuration>
-
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-
-        </plugins>
-
-
-
-    </build>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- https://maven.apache.org/plugins/maven-gpg-plugin/usage.html -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>3.2.4</version>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+            <configuration>
+              <!-- This is necessary for gpg to not try to use the pinentry programs -->
+              <gpgArguments>
+                <arg>--pinentry-mode</arg>
+                <arg>loopback</arg>
+              </gpgArguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- https://central.sonatype.org/publish/publish-portal-maven/ -->
+      <plugin>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>0.5.0</version>
+        <extensions>true</extensions>
+        <configuration>
+          <!-- see ~/.m2/settings.xml -->
+          <publishingServerId>central</publishingServerId>
+          <tokenAuth>true</tokenAuth>
+          <autoPublish>true</autoPublish>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>
