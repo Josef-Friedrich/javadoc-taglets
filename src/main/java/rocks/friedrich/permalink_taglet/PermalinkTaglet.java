@@ -20,7 +20,7 @@ public class PermalinkTaglet implements Taglet
 {
     private static final String NAME = "permalink";
 
-    protected String genLink(String text)
+    private String genLink(String text)
     {
         String url = text;
         String display = text;
