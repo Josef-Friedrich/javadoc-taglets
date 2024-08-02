@@ -1,6 +1,5 @@
 package rocks.friedrich.permalink_taglet;
 
-
 import java.util.List;
 import java.util.Set;
 
@@ -14,7 +13,7 @@ import static jdk.javadoc.doclet.Taglet.Location.*;
 
 /**
  *
- * @permalink
+ * @permalink https://github.com/Josef-Friedrich/permalink-javadoc-taglet/blob/e5bfad79e3544aeb80f2b8d761241011123e8325/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L17
  */
 public class PermalinkTaglet implements Taglet
 {
@@ -43,13 +42,8 @@ public class PermalinkTaglet implements Taglet
     @Override
     public Set<Location> getAllowedLocations()
     {
-        return Set.of( OVERVIEW,
-   MODULE,
-   PACKAGE,
-   TYPE,
-   CONSTRUCTOR,
-   METHOD,
-   FIELD);
+        return Set.of(OVERVIEW, MODULE, PACKAGE, TYPE, CONSTRUCTOR, METHOD,
+                FIELD);
     }
 
     @Override
