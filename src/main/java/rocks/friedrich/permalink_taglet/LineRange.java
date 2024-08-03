@@ -12,7 +12,9 @@ public class LineRange
         int[] lines = new int[segments.length];
         for (int i = 0; i < segments.length; i++)
         {
-            lines[i] = Integer.parseInt(segments[i].substring(1));
+            String lineNumber = segments[i];
+            lineNumber = lineNumber.replace("L", "");
+            lines[i] = Integer.parseInt(lineNumber);
         }
         begin = lines[0];
         if (segments.length == 1)
