@@ -1,5 +1,6 @@
 package rocks.friedrich.permalink_taglet;
 
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;
@@ -47,5 +48,71 @@ class PermalinkTest
                 "https://git.drupalcode.org/sandbox/joseffriedrich-2058951/-/blob/b4502dd4ae0f5bf84ce9e46fecfcbd3e152526b8/pgn_access.module#L33-52");
         assertEquals(link.getLineRange().getBegin(), 33);
         assertEquals(link.getLineRange().getEnd(), 52);
+    }
+
+    @Nested
+    class AttributesTest
+    {
+        Permalink link = new Permalink(
+                "https://github.com/Josef-Friedrich/permalink-javadoc-taglet/blob/066acfb1c11107be603580b9a603cf3c892e3c60/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L23-L34");
+
+        @Test
+        void testGetUrl()
+        {
+            assertEquals(link.getUrl().toString(),
+                    "https://github.com/Josef-Friedrich/permalink-javadoc-taglet/blob/066acfb1c11107be603580b9a603cf3c892e3c60/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L23-L34");
+        }
+
+        @Test
+        void testGetDisplay()
+        {
+            assertEquals(link.getDisplay(),
+                    "github.com/Josef-Friedrich/permalink-javadoc-taglet src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java Lines 23 - 34");
+        }
+
+        @Test
+        void testGetLineRange()
+        {
+            assertEquals(link.getLineRange().getBegin(), 23);
+            assertEquals(link.getLineRange().getEnd(), 34);
+        }
+
+        @Test
+        void testGetHost()
+        {
+            assertEquals(link.getHost(), "github.com");
+        }
+
+        @Test
+        void testGetOwner()
+        {
+            assertEquals(link.getOwner(), "Josef-Friedrich");
+        }
+
+        @Test
+        void testGetRepo()
+        {
+            assertEquals(link.getRepo(), "permalink-javadoc-taglet");
+        }
+
+        @Test
+        void testGetFile()
+        {
+            assertEquals(link.getFile(),
+                    "src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java");
+        }
+
+        @Test
+        void testGetCommitId()
+        {
+            assertEquals(link.getCommitId(),
+                    "066acfb1c11107be603580b9a603cf3c892e3c60");
+        }
+
+        @Test
+        void testGetShortCommitId()
+        {
+            assertEquals(link.getShortCommitId(), "066acfb");
+        }
     }
 }
