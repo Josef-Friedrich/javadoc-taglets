@@ -6,7 +6,7 @@
 
   <groupId>rocks.friedrich</groupId>
   <artifactId>permalink-taglet</artifactId>
-  <version>0.1.0</version>
+  <version>0.2.0</version>
 
   <description>Provides a @permalink tag for Javadoc to display formatted Github (or similar platforms) permalinks.</description>
   <url>https://github.com/Josef-Friedrich/permalink-javadoc-taglet</url>

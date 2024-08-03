@@ -20,19 +20,6 @@ public class PermalinkTaglet implements Taglet
 {
     private static final String NAME = "permalink";
 
-    private String genLink(String text)
-    {
-        String url = text;
-        String display = text;
-        int firstSpace = text.indexOf(' ');
-        if (firstSpace != -1)
-        {
-            url = text.substring(0, firstSpace);
-            display = text.substring(firstSpace).trim();
-        }
-        return String.format("<a href='%s'>%s</a>", url, display);
-    }
-
     @Override
     public String getName()
     {
@@ -72,7 +59,8 @@ public class PermalinkTaglet implements Taglet
         {
             String text = ((UnknownBlockTagTree) tag).getContent().get(0)
                     .toString();
-            buf.append("<dd>").append(genLink(text)).append("</dd>");
+            buf.append("<dd>").append(new Permalink(text).generateHtmlLink())
+                    .append("</dd>");
         }
         return buf.toString();
     }

@@ -119,6 +119,7 @@ public class Permalink
 
     public String generateHtmlLink()
     {
-        return String.format("<a href=\"%s\">%s</a>", url.toString(), display);
+        return String.format("<a href=\"%s\">%s</a>", url.toString(),
+                getDisplay());
     }
 }
