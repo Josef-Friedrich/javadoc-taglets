@@ -1,3 +1,4 @@
 {
-    "java.debug.settings.onBuildFailureProceed": true
+  "java.debug.settings.onBuildFailureProceed": true,
+  "java.format.settings.url": "https://raw.githubusercontent.com/engine-pi/engine-pi/main/engine-pi/src/main/resources/eclipse-formatter.xml"
 }

@@ -12,9 +12,20 @@ import jdk.javadoc.doclet.Taglet;
 import static jdk.javadoc.doclet.Taglet.Location.*;
 
 /**
+ * The PermalinkTaglet class implements the Taglet interface and represents a
+ * custom Javadoc tag called "@permalink". This tag is used to generate
+ * permalinks to specific lines of code in a GitHub repository.
  *
- * @permalink https://github.com/Josef-Friedrich/permalink-javadoc-taglet/blob/e5bfad79e3544aeb80f2b8d761241011123e8325/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L17
- *            Link text
+ * Example usage:
+ *
+ * {@code
+ * /**
+ *  * This is a sample class.
+ *  * @permalink https://github.com/example/repository/blob/commit-hash/path/to/file.java#L10-L20
+ *  *\/
+ * public class SampleClass { // class implementation } }
+ *
+ * @author Josef Friedrich
  */
 public class PermalinkTaglet implements Taglet
 {
@@ -33,19 +44,12 @@ public class PermalinkTaglet implements Taglet
                 FIELD);
     }
 
-    /**
-     * @permalink https://github.com/Josef-Friedrich/permalink-javadoc-taglet/blob/e5bfad79e3544aeb80f2b8d761241011123e8325/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L17
-     * @permalink https://github.com/Josef-Friedrich/permalink-javadoc-taglet/blob/e5bfad79e3544aeb80f2b8d761241011123e8325/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L17
-     */
     @Override
     public boolean isInlineTag()
     {
         return false;
     }
 
-    /**
-     * @permalink https://github.com/Josef-Friedrich/permalink-javadoc-taglet/blob/e5bfad79e3544aeb80f2b8d761241011123e8325/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L17
-     */
     @Override
     public String toString(List<? extends DocTree> tags, Element element)
     {

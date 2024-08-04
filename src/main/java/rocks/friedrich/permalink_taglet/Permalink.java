@@ -6,6 +6,17 @@ import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents a permalink, which is a URL that points to a specific location in
+ * a repository.
+ *
+ * <p>
+ * The permalink can include information about the host, owner, repository,
+ * file, commit ID, and line range.
+ * </p>
+ *
+ * @author Josef Friedrich
+ */
 public class Permalink
 {
     private final URL url;
