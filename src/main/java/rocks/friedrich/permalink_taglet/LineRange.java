@@ -38,17 +38,32 @@ public class LineRange
         }
     }
 
+    /**
+     * Returns the beginning line number.
+     *
+     * @return the beginning line number
+     */
     public int getBegin()
     {
         return begin;
     }
 
+    /**
+     * Returns the end line number.
+     *
+     * @return the end line number.
+     */
     public int getEnd()
     {
         return end;
     }
 
-    public String generateHtml()
+    /**
+     * @override
+     *
+     * @hidden
+     */
+    public String toString()
     {
         if (end == -1)
         {

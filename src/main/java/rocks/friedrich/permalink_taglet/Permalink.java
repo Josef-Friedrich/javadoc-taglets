@@ -90,7 +90,7 @@ public class Permalink
             return display;
         }
         return String.format("%s/%s/%s %s %s", getHost(), getOwner(), getRepo(),
-                getFile(), getLineRange().generateHtml());
+                getFile(), getLineRange());
     }
 
     public LineRange getLineRange()

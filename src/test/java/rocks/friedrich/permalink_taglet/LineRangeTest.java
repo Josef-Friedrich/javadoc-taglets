@@ -26,6 +26,6 @@ class LineRangeTest
     void generateHtml()
     {
         LineRange range = new LineRange("L1-L2");
-        assertEquals(range.generateHtml(), "Lines 1 - 2");
+        assertEquals(range.toString(), "Lines 1 - 2");
     }
 }
