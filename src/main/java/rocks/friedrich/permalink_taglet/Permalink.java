@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2024 Josef Friedrich.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package rocks.friedrich.permalink_taglet;
 
 import java.net.MalformedURLException;
@@ -15,6 +31,9 @@ import java.util.regex.Pattern;
  * file, commit ID, and line range.
  * </p>
  *
+ * For example:
+ * {@code https://github.com/Josef-Friedrich/permalink-javadoc-taglet/blob/066acfb1c11107be603580b9a603cf3c892e3c60/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L23-L42}
+ *
  * @author Josef Friedrich
  */
 public class Permalink
@@ -23,23 +42,39 @@ public class Permalink
 
     private String display;
 
-    private LineRange lineRange;
-
     /**
-     * For example
-     * {@code junit-team/junit5-samples/blob/425c27ecd9cefee5a1459e4cc9efd1c8390836e3/junit5-jupiter-starter-maven/pom.xml#L7}
+     * For example:
+     * {@code Josef-Friedrich/permalink-javadoc-taglet/blob/066acfb1c11107be603580b9a603cf3c892e3c60/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L23-L42}
      */
     private String path;
 
+    /**
+     * For example: {@code github.com/}
+     */
     private String host;
 
+    /**
+     * For example: {@code Josef-Friedrich}
+     */
     private String owner;
 
+    /**
+     * For example: {@code permalink-javadoc-taglet}
+     */
     private String repo;
 
+    /**
+     * For example:
+     * {@code src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java}
+     */
     private String file;
 
+    /**
+     * For example: {@code 066acfb1c11107be603580b9a603cf3c892e3c60}
+     */
     private String commitId;
+
+    private LineRange lineRange;
 
     public Permalink(String tagText)
     {
@@ -93,39 +128,67 @@ public class Permalink
                 getFile(), getLineRange());
     }
 
-    public LineRange getLineRange()
+    /**
+     * For example:
+     * {@code Josef-Friedrich/permalink-javadoc-taglet/blob/066acfb1c11107be603580b9a603cf3c892e3c60/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L23-L42}
+     */
+    public String getPath()
     {
-        return lineRange;
+        return path;
     }
 
+    /**
+     * @return For example: {@code github.com/}
+     */
     public String getHost()
     {
         return host;
     }
 
+    /**
+     * @return For example: {@code Josef-Friedrich}
+     */
     public String getOwner()
     {
         return owner;
     }
 
+    /**
+     * @return For example: {@code permalink-javadoc-taglet}
+     */
     public String getRepo()
     {
         return repo;
     }
 
+    /**
+     * @return For example:
+     *         {@code src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java}
+     */
     public String getFile()
     {
         return file;
     }
 
+    /**
+     * @return For example: {@code 066acfb1c11107be603580b9a603cf3c892e3c60}
+     */
     public String getCommitId()
     {
         return commitId;
     }
 
+    /**
+     * @return For example: {@code 066acfb}
+     */
     public String getShortCommitId()
     {
         return commitId.substring(0, 7);
+    }
+
+    public LineRange getLineRange()
+    {
+        return lineRange;
     }
 
     public String generateHtmlLink()

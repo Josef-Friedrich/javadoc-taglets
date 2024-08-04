@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2024 Josef Friedrich.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package rocks.friedrich.permalink_taglet;
 
 import java.util.List;
@@ -22,8 +38,7 @@ import static jdk.javadoc.doclet.Taglet.Location.*;
  * /**
  *  * This is a sample class.
  *  * @permalink https://github.com/example/repository/blob/commit-hash/path/to/file.java#L10-L20
- *  *\/
- * public class SampleClass { // class implementation } }
+ * *\/ public class SampleClass { // class implementation } }
  *
  * @author Josef Friedrich
  */

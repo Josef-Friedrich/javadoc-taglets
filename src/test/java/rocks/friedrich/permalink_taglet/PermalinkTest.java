@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2024 Josef Friedrich.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package rocks.friedrich.permalink_taglet;
 
 import org.junit.jupiter.api.Nested;
@@ -54,27 +70,27 @@ class PermalinkTest
     class AttributesTest
     {
         Permalink link = new Permalink(
-                "https://github.com/Josef-Friedrich/permalink-javadoc-taglet/blob/066acfb1c11107be603580b9a603cf3c892e3c60/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L23-L34");
+                "https://github.com/Josef-Friedrich/permalink-javadoc-taglet/blob/066acfb1c11107be603580b9a603cf3c892e3c60/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L23-L42");
 
         @Test
         void testGetUrl()
         {
             assertEquals(link.getUrl().toString(),
-                    "https://github.com/Josef-Friedrich/permalink-javadoc-taglet/blob/066acfb1c11107be603580b9a603cf3c892e3c60/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L23-L34");
+                    "https://github.com/Josef-Friedrich/permalink-javadoc-taglet/blob/066acfb1c11107be603580b9a603cf3c892e3c60/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L23-L42");
         }
 
         @Test
         void testGetDisplay()
         {
             assertEquals(link.getDisplay(),
-                    "github.com/Josef-Friedrich/permalink-javadoc-taglet src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java Lines 23 - 34");
+                    "github.com/Josef-Friedrich/permalink-javadoc-taglet src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java Lines 23 - 42");
         }
 
         @Test
         void testGetLineRange()
         {
             assertEquals(link.getLineRange().getBegin(), 23);
-            assertEquals(link.getLineRange().getEnd(), 34);
+            assertEquals(link.getLineRange().getEnd(), 42);
         }
 
         @Test
