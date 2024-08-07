@@ -6,9 +6,9 @@
 
   <groupId>rocks.friedrich</groupId>
   <artifactId>taglets</artifactId>
-  <version>0.2.0</version>
+  <version>0.3.0</version>
 
-  <description>Provides a @permalink tag for Javadoc to display formatted Github (or similar platforms) permalinks.</description>
+  <description>Provides same Javadoc taglets, for example a @repolink tag for Javadoc to display formatted Github (or similar platforms) permalinks.</description>
   <url>https://github.com/Josef-Friedrich/javadoc-taglets</url>
   <licenses>
     <license>
@@ -106,17 +106,6 @@
         <configuration>
           <!-- to disable the "missing" warnings -->
           <doclint>all,-missing</doclint>
-
-          <!--
-          https://maven.apache.org/plugins/maven-javadoc-plugin/examples/taglet-configuration.html -->
-          <taglet>rocks.friedrich.permalink_taglet.PermalinkTaglet</taglet>
-          <tagletpath>target/permalink-taglet-${project.version}.jar</tagletpath>
-          <tagletArtifact>
-            <groupId>rocks.friedrich</groupId>
-            <artifactId>permalink-taglet</artifactId>
-            <version>${project.version}</version>
-          </tagletArtifact>
-
         </configuration>
 
         <executions>

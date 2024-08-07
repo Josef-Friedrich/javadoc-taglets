@@ -35,9 +35,9 @@ import com.sun.source.doctree.UnknownBlockTagTree;
 import jdk.javadoc.doclet.Taglet;
 
 /**
- * The PermalinkTaglet class implements the Taglet interface and represents a
- * custom Javadoc tag called "@permalink". This tag is used to generate
- * permalinks to specific lines of code in a GitHub repository.
+ * The RepolinkTaglet class implements the Taglet interface and represents a
+ * custom Javadoc tag called "@repolink". This tag is used to generate
+ * permalinks to specific lines of code in a git repository.
  *
  * @author Josef Friedrich
  */
@@ -72,7 +72,7 @@ public class RepolinkTaglet implements Taglet
             return null;
         }
         StringBuilder buf = new StringBuilder(
-                "<dl class=\"notes\"><dt>Permalink:</dt>");
+                "<dl class=\"notes\"><dt>Repolink:</dt>");
         for (DocTree tag : tags)
         {
             String text = ((UnknownBlockTagTree) tag).getContent().get(0)

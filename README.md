@@ -3,7 +3,7 @@
 
 # javadoc-taglets
 
-Provides a @permalink tag for Javadoc to display formatted Github (or similar platforms) permalinks.
+Provides a @repolink tag for Javadoc to display formatted Github (or similar platforms) permalinks.
 
 ```xml
 

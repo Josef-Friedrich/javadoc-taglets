@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+
+## [v0.3.0](https://github.com/Josef-Friedrich/javadoc-taglets/releases/tag/v0.3.0) - 2024-08-07
+
+<small>[Compare with v0.2.0](https://github.com/Josef-Friedrich/javadoc-taglets/compare/v0.2.0...v0.3.0)</small>
+
+### Changed
+
+- Detect more links ([0261b53](0261b5383089ce0cbe73d10c27783ad4c3f103d6) by Josef Friedrich).
+- Rename package ([02cca46](02cca4615942ec56923c05508278e78f1f85e543) by Josef Friedrich).
+
 ## [v0.2.0](https://github.com/Josef-Friedrich/javadoc-taglets/releases/tag/v0.2.0) - 2024-08-04
 
 <small>[Compare with v0.1.0](https://github.com/Josef-Friedrich/javadoc-taglets/compare/v0.1.0...v0.2.0)</small>
