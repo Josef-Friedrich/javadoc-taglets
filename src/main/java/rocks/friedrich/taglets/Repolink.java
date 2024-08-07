@@ -109,7 +109,7 @@ public class Repolink
             throw new RuntimeException(e.getMessage());
         }
         path = this.url.getPath();
-        host = this.url.getHost();
+        host = this.url.getHost().toLowerCase();
         String[] segments = path.split("/");
         owner = segments[1];
         repo = segments[2];
@@ -137,13 +137,17 @@ public class Repolink
         else if (segments.length > 5
                 && (segments[3].equals("src") || segments[3].equals("raw")))
         {
+            if (segments[3].equals("raw"))
+            {
+                raw = true;
+            }
             if (segments[4].equals("branch"))
             {
-                branch = segments[4];
+                branch = segments[5];
             }
-            else if (segments[4].equals("commit") && isSha1(segments[4]))
+            else if (segments[4].equals("commit") && isSha1(segments[5]))
             {
-                commitId = segments[4];
+                commitId = segments[5];
             }
             file = joinSegments(segments, 6);
         }
@@ -192,6 +196,15 @@ public class Repolink
      */
     public String getHost()
     {
+        return host;
+    }
+
+    public String getHostDisplay()
+    {
+        if (host.equals("github.com"))
+        {
+            return "Github: ";
+        }
         return host;
     }
 
@@ -266,8 +279,17 @@ public class Repolink
         {
             return display;
         }
-        return String.format("%s/%s/%s %s %s", getHost(), getOwner(), getRepo(),
-                getFile(), getLineRange());
+        String output = String.format("%s%s/%s", getHostDisplay(), getOwner(),
+                getRepo());
+        if (getFile() != null)
+        {
+            output += " " + getFile();
+        }
+        if (getLineRange() != null)
+        {
+            output += " " + getLineRange();
+        }
+        return output;
     }
 
     public String generateHtmlLink()

@@ -15,12 +15,12 @@ Provides a @permalink tag for Javadoc to display formatted Github (or similar pl
 
         <!--
         https://maven.apache.org/plugins/maven-javadoc-plugin/examples/taglet-configuration.html -->
-        <taglet>rocks.friedrich.permalink_taglet.PermalinkTaglet</taglet>
+        <taglet>rocks.friedrich.taglets.RepolinkTaglet</taglet>
 
         <tagletArtifact>
             <groupId>rocks.friedrich</groupId>
-            <artifactId>permalink-taglet</artifactId>
-            <version>0.1.0</version>
+            <artifactId>taglets</artifactId>
+            <version>0.3.0</version>
         </tagletArtifact>
 
     </configuration>
