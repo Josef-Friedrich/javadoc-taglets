@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>rocks.friedrich</groupId>
-  <artifactId>permalink-taglet</artifactId>
+  <artifactId>taglets</artifactId>
   <version>0.2.0</version>
 
   <description>Provides a @permalink tag for Javadoc to display formatted Github (or similar platforms) permalinks.</description>
-  <url>https://github.com/Josef-Friedrich/permalink-javadoc-taglet</url>
+  <url>https://github.com/Josef-Friedrich/javadoc-taglets</url>
   <licenses>
     <license>
       <name>The GNU General Public License, Version 3.0</name>
@@ -24,9 +24,9 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:git:git://github.com/Josef-Friedrich/permalink-javadoc-taglet.git</connection>
-    <developerConnection>scm:git:ssh://github.com:Josef-Friedrich/permalink-javadoc-taglet.git</developerConnection>
-    <url>https://github.com/Josef-Friedrich/permalink-javadoc-taglet</url>
+    <connection>scm:git:git://github.com/Josef-Friedrich/javadoc-taglets.git</connection>
+    <developerConnection>scm:git:ssh://github.com:Josef-Friedrich/javadoc-taglets.git</developerConnection>
+    <url>https://github.com/Josef-Friedrich/javadoc-taglets</url>
   </scm>
 
   <properties>

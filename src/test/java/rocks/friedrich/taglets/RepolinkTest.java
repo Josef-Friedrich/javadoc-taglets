@@ -14,53 +14,96 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package rocks.friedrich.permalink_taglet;
+package rocks.friedrich.taglets;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.net.MalformedURLException;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-class PermalinkTest
+class RepolinkTest
 {
     @Test
-    void testGithubBeginAndEndLines() throws MalformedURLException
+    void testGithubBeginAndEndLines()
     {
-        Permalink link = new Permalink(
+        Repolink link = new Repolink(
                 "https://github.com/junit-team/junit5-samples/blob/425c27ecd9cefee5a1459e4cc9efd1c8390836e3/junit5-jupiter-starter-maven/pom.xml#L9-L15");
-        assertEquals(link.getLineRange().getBegin(), 9);
-        assertEquals(link.getLineRange().getEnd(), 15);
+        assertEquals(link.getUrl(),
+                "https://github.com/junit-team/junit5-samples/blob/425c27ecd9cefee5a1459e4cc9efd1c8390836e3/junit5-jupiter-starter-maven/pom.xml#L9-L15");
+        assertEquals(link.getHost(), "github.com");
+        assertEquals(link.getPath(),
+                "/junit-team/junit5-samples/blob/425c27ecd9cefee5a1459e4cc9efd1c8390836e3/junit5-jupiter-starter-maven/pom.xml");
+        assertEquals(link.getOwner(), "junit-team");
+        assertEquals(link.getRepo(), "junit5-samples");
         assertEquals(link.getCommitId(),
                 "425c27ecd9cefee5a1459e4cc9efd1c8390836e3");
         assertEquals(link.getFile(), "junit5-jupiter-starter-maven/pom.xml");
-        assertEquals(link.getOwner(), "junit-team");
-        assertEquals(link.getRepo(), "junit5-samples");
+        assertEquals(link.getLineRange().getBegin(), 9);
+        assertEquals(link.getLineRange().getEnd(), 15);
     }
 
     @Test
-    void testGithubBeginOnlyLine() throws MalformedURLException
+    void testGithubBeginOnlyLine()
     {
-        Permalink link = new Permalink(
+        Repolink link = new Repolink(
                 "https://github.com/junit-team/junit5-samples/blob/425c27ecd9cefee5a1459e4cc9efd1c8390836e3/junit5-jupiter-starter-maven/pom.xml#L7");
         assertEquals(link.getLineRange().getBegin(), 7);
         assertEquals(link.getLineRange().getEnd(), -1);
     }
 
-    @Test
-    void testForgejo() throws MalformedURLException
+    @Nested
+    class ForgejoTest
     {
-        Permalink link = new Permalink(
-                "https://inf.pirckheimer-gymnasium.de/drupal/pgn_gallery/src/commit/25df4b141c3897a3671d494a4015ecaa00275b6d/pgn_gallery.module#L9-L21");
-        assertEquals(link.getLineRange().getBegin(), 9);
-        assertEquals(link.getLineRange().getEnd(), 21);
+        @Test
+        void testPermlinkWithCommitId()
+        {
+            Repolink link = new Repolink(
+                    "https://inf.pirckheimer-gymnasium.de/drupal/pgn_gallery/src/commit/25df4b141c3897a3671d494a4015ecaa00275b6d/pgn_gallery.module#L9-L21");
+            assertEquals(link.getLineRange().getBegin(), 9);
+            assertEquals(link.getLineRange().getEnd(), 21);
+        }
+
+        @Test
+        void testBranch()
+        {
+            new Repolink(
+                    "https://inf.pirckheimer-gymnasium.de/engine-pi/engine-pi/src/branch/main/README.md");
+        }
+
+        @Test
+        void testRaw()
+        {
+            new Repolink(
+                    "https://inf.pirckheimer-gymnasium.de/engine-pi/engine-pi/raw/branch/main/README.md");
+        }
+
+        @Test
+        void testQuery()
+        {
+            new Repolink(
+                    "https://inf.pirckheimer-gymnasium.de/engine-pi/engine-pi/src/branch/main/README.md?display=source");
+        }
+    }
+
+    class GitlabTest
+    {
+        @Test
+        void testRepoRootTwoLevels()
+        {
+            new Repolink("https://gitlab.com/rak-n-rok/krake");
+        }
+
+        @Test
+        void testRepoRootThreeLevels()
+        {
+            new Repolink("https://gitlab.com/liscioapps/fun/collar-tug");
+        }
     }
 
     @Test
-    void testGitlab() throws MalformedURLException
+    void testGitlab()
     {
-        Permalink link = new Permalink(
+        Repolink link = new Repolink(
                 "https://git.drupalcode.org/sandbox/joseffriedrich-2058951/-/blob/b4502dd4ae0f5bf84ce9e46fecfcbd3e152526b8/pgn_access.module#L33-52");
         assertEquals(link.getLineRange().getBegin(), 33);
         assertEquals(link.getLineRange().getEnd(), 52);
@@ -69,21 +112,21 @@ class PermalinkTest
     @Nested
     class AttributesTest
     {
-        Permalink link = new Permalink(
-                "https://github.com/Josef-Friedrich/permalink-javadoc-taglet/blob/066acfb1c11107be603580b9a603cf3c892e3c60/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L23-L42");
+        Repolink link = new Repolink(
+                "https://github.com/Josef-Friedrich/javadoc-taglets/blob/066acfb1c11107be603580b9a603cf3c892e3c60/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L23-L42");
 
         @Test
         void testGetUrl()
         {
             assertEquals(link.getUrl().toString(),
-                    "https://github.com/Josef-Friedrich/permalink-javadoc-taglet/blob/066acfb1c11107be603580b9a603cf3c892e3c60/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L23-L42");
+                    "https://github.com/Josef-Friedrich/javadoc-taglets/blob/066acfb1c11107be603580b9a603cf3c892e3c60/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L23-L42");
         }
 
         @Test
         void testGetDisplay()
         {
             assertEquals(link.getDisplay(),
-                    "github.com/Josef-Friedrich/permalink-javadoc-taglet src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java Lines 23 - 42");
+                    "github.com/Josef-Friedrich/javadoc-taglets src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java Lines 23 - 42");
         }
 
         @Test
@@ -108,7 +151,7 @@ class PermalinkTest
         @Test
         void testGetRepo()
         {
-            assertEquals(link.getRepo(), "permalink-javadoc-taglet");
+            assertEquals(link.getRepo(), "javadoc-taglets");
         }
 
         @Test

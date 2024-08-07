@@ -14,7 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package rocks.friedrich.permalink_taglet;
+package rocks.friedrich.taglets;
+
+import static jdk.javadoc.doclet.Taglet.Location.CONSTRUCTOR;
+import static jdk.javadoc.doclet.Taglet.Location.FIELD;
+import static jdk.javadoc.doclet.Taglet.Location.METHOD;
+import static jdk.javadoc.doclet.Taglet.Location.MODULE;
+import static jdk.javadoc.doclet.Taglet.Location.OVERVIEW;
+import static jdk.javadoc.doclet.Taglet.Location.PACKAGE;
+import static jdk.javadoc.doclet.Taglet.Location.TYPE;
 
 import java.util.List;
 import java.util.Set;
@@ -25,26 +33,17 @@ import com.sun.source.doctree.DocTree;
 import com.sun.source.doctree.UnknownBlockTagTree;
 
 import jdk.javadoc.doclet.Taglet;
-import static jdk.javadoc.doclet.Taglet.Location.*;
 
 /**
  * The PermalinkTaglet class implements the Taglet interface and represents a
  * custom Javadoc tag called "@permalink". This tag is used to generate
  * permalinks to specific lines of code in a GitHub repository.
  *
- * Example usage:
- *
- * {@code
- * /**
- *  * This is a sample class.
- *  * @permalink https://github.com/example/repository/blob/commit-hash/path/to/file.java#L10-L20
- * *\/ public class SampleClass { // class implementation } }
- *
  * @author Josef Friedrich
  */
-public class PermalinkTaglet implements Taglet
+public class RepolinkTaglet implements Taglet
 {
-    private static final String NAME = "permalink";
+    private static final String NAME = "repolink";
 
     @Override
     public String getName()
@@ -78,7 +77,7 @@ public class PermalinkTaglet implements Taglet
         {
             String text = ((UnknownBlockTagTree) tag).getContent().get(0)
                     .toString();
-            buf.append("<dd>").append(new Permalink(text).generateHtmlLink())
+            buf.append("<dd>").append(new Repolink(text).generateHtmlLink())
                     .append("</dd>");
         }
         return buf.toString();

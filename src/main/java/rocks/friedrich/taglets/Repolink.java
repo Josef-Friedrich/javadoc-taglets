@@ -14,17 +14,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package rocks.friedrich.permalink_taglet;
+package rocks.friedrich.taglets;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Represents a permalink, which is a URL that points to a specific location in
- * a repository.
+ * Represents a link to a repository file in a web view, which is a URL that
+ * points to a specific location in a repository.
  *
  * <p>
  * The permalink can include information about the host, owner, repository,
@@ -32,26 +31,32 @@ import java.util.regex.Pattern;
  * </p>
  *
  * For example:
- * {@code https://github.com/Josef-Friedrich/permalink-javadoc-taglet/blob/066acfb1c11107be603580b9a603cf3c892e3c60/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L23-L42}
+ * {@code https://github.com/Josef-Friedrich/javadoc-taglets/blob/066acfb1c11107be603580b9a603cf3c892e3c60/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L23-L42}
  *
  * @author Josef Friedrich
  */
-public class Permalink
+public class Repolink
 {
+    /**
+     * The complete URL of the repository link.
+     */
     private final URL url;
 
-    private String display;
+    /**
+     * The host name of the repository link URL, for example:
+     * {@code github.com}.
+     *
+     * @see URL#getHost()
+     */
+    private String host;
 
     /**
      * For example:
-     * {@code Josef-Friedrich/permalink-javadoc-taglet/blob/066acfb1c11107be603580b9a603cf3c892e3c60/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L23-L42}
+     * {@code /Josef-Friedrich/javadoc-taglets/blob/066acfb1c11107be603580b9a603cf3c892e3c60/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java}
+     *
+     * @see URL#getHost()
      */
     private String path;
-
-    /**
-     * For example: {@code github.com/}
-     */
-    private String host;
 
     /**
      * For example: {@code Josef-Friedrich}
@@ -59,9 +64,16 @@ public class Permalink
     private String owner;
 
     /**
-     * For example: {@code permalink-javadoc-taglet}
+     * For example: {@code javadoc-taglets}
      */
     private String repo;
+
+    /**
+     * For example: {@code 066acfb1c11107be603580b9a603cf3c892e3c60}
+     */
+    private String commitId;
+
+    private String branch;
 
     /**
      * For example:
@@ -69,14 +81,14 @@ public class Permalink
      */
     private String file;
 
-    /**
-     * For example: {@code 066acfb1c11107be603580b9a603cf3c892e3c60}
-     */
-    private String commitId;
-
     private LineRange lineRange;
 
-    public Permalink(String tagText)
+    /**
+     * Text that is displayed as the link text.
+     */
+    private String display;
+
+    public Repolink(String tagText)
     {
         String url = tagText;
         int firstSpace = tagText.indexOf(' ');
@@ -98,6 +110,7 @@ public class Permalink
         String[] pathSegments = path.split("/");
         owner = pathSegments[1];
         repo = pathSegments[2];
+        // https://github.com/Josef-Friedrich/javadoc-taglets/blob/main/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java
         Pattern pattern = Pattern.compile("[0-9a-f]{40}",
                 Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(path);
@@ -113,36 +126,38 @@ public class Permalink
         }
     }
 
-    public URL getUrl()
-    {
-        return url;
-    }
-
-    public String getDisplay()
-    {
-        if (display != null)
-        {
-            return display;
-        }
-        return String.format("%s/%s/%s %s %s", getHost(), getOwner(), getRepo(),
-                getFile(), getLineRange());
-    }
-
     /**
-     * For example:
-     * {@code Josef-Friedrich/permalink-javadoc-taglet/blob/066acfb1c11107be603580b9a603cf3c892e3c60/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java#L23-L42}
+     * Get the complete URL of the repository link.
+     *
+     * @return The complete URL of the repository link.
+     *
+     * @see URL#toString()
      */
-    public String getPath()
+    public String getUrl()
     {
-        return path;
+        return url.toString();
     }
 
     /**
-     * @return For example: {@code github.com/}
+     * Get the host name of the repository link URL.
+     *
+     * @return The host name of the repository link URL, for example:
+     *         {@code github.com}.
+     *
+     * @see URL#getHost()
      */
     public String getHost()
     {
         return host;
+    }
+
+    /**
+     * For example:
+     * {@code /Josef-Friedrich/javadoc-taglets/blob/066acfb1c11107be603580b9a603cf3c892e3c60/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java}
+     */
+    public String getPath()
+    {
+        return path;
     }
 
     /**
@@ -154,7 +169,7 @@ public class Permalink
     }
 
     /**
-     * @return For example: {@code permalink-javadoc-taglet}
+     * @return For example: {@code javadoc-taglets}
      */
     public String getRepo()
     {
@@ -189,6 +204,16 @@ public class Permalink
     public LineRange getLineRange()
     {
         return lineRange;
+    }
+
+    public String getDisplay()
+    {
+        if (display != null)
+        {
+            return display;
+        }
+        return String.format("%s/%s/%s %s %s", getHost(), getOwner(), getRepo(),
+                getFile(), getLineRange());
     }
 
     public String generateHtmlLink()
