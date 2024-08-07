@@ -21,34 +21,96 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-class RepolinkTest
+class RepolinkAssertion
+{
+    private Repolink link;
+
+    public RepolinkAssertion(String tagText)
+    {
+        link = new Repolink(tagText);
+    }
+
+    public void assertUrl(String url)
+    {
+        assertEquals(link.getUrl(), url);
+    }
+
+    public void assertHost(String host)
+    {
+        assertEquals(link.getHost(), host);
+    }
+
+    public void assertPath(String path)
+    {
+        assertEquals(link.getPath(), path);
+    }
+
+    public void assertOwner(String owner)
+    {
+        assertEquals(link.getOwner(), owner);
+    }
+
+    public void assertRepo(String repo)
+    {
+        assertEquals(link.getRepo(), repo);
+    }
+
+    public void assertCommitId(String commitId)
+    {
+        assertEquals(link.getCommitId(), commitId);
+    }
+
+    public void assertFile(String file)
+    {
+        assertEquals(link.getFile(), file);
+    }
+
+    public void assertLineRange(int begin, int end)
+    {
+        assertEquals(link.getLineRange().getBegin(), begin);
+        assertEquals(link.getLineRange().getEnd(), end);
+    }
+}
+
+public class RepolinkTest
 {
     @Test
     void testGithubBeginAndEndLines()
     {
-        Repolink link = new Repolink(
+        var link = new RepolinkAssertion(
                 "https://github.com/junit-team/junit5-samples/blob/425c27ecd9cefee5a1459e4cc9efd1c8390836e3/junit5-jupiter-starter-maven/pom.xml#L9-L15");
-        assertEquals(link.getUrl(),
+        link.assertUrl(
                 "https://github.com/junit-team/junit5-samples/blob/425c27ecd9cefee5a1459e4cc9efd1c8390836e3/junit5-jupiter-starter-maven/pom.xml#L9-L15");
-        assertEquals(link.getHost(), "github.com");
-        assertEquals(link.getPath(),
+        link.assertHost("github.com");
+        link.assertPath(
                 "/junit-team/junit5-samples/blob/425c27ecd9cefee5a1459e4cc9efd1c8390836e3/junit5-jupiter-starter-maven/pom.xml");
-        assertEquals(link.getOwner(), "junit-team");
-        assertEquals(link.getRepo(), "junit5-samples");
-        assertEquals(link.getCommitId(),
-                "425c27ecd9cefee5a1459e4cc9efd1c8390836e3");
-        assertEquals(link.getFile(), "junit5-jupiter-starter-maven/pom.xml");
-        assertEquals(link.getLineRange().getBegin(), 9);
-        assertEquals(link.getLineRange().getEnd(), 15);
+        link.assertOwner("junit-team");
+        link.assertRepo("junit5-samples");
+        link.assertCommitId("425c27ecd9cefee5a1459e4cc9efd1c8390836e3");
+        link.assertFile("junit5-jupiter-starter-maven/pom.xml");
+        link.assertLineRange(9, 15);
     }
 
     @Test
     void testGithubBeginOnlyLine()
     {
-        Repolink link = new Repolink(
+        var link = new RepolinkAssertion(
                 "https://github.com/junit-team/junit5-samples/blob/425c27ecd9cefee5a1459e4cc9efd1c8390836e3/junit5-jupiter-starter-maven/pom.xml#L7");
-        assertEquals(link.getLineRange().getBegin(), 7);
-        assertEquals(link.getLineRange().getEnd(), -1);
+        link.assertLineRange(7, -1);
+    }
+
+    @Nested
+    class GithubTest
+    {
+        @Test
+        void testRepoLandingPage()
+        {
+            var link = new RepolinkAssertion(
+                    "https://github.com/erincatto/box2d");
+            link.assertHost("github.com");
+            link.assertOwner("erincatto");
+            link.assertRepo("box2d");
+        }
     }
 
     @Nested
@@ -57,40 +119,50 @@ class RepolinkTest
         @Test
         void testPermlinkWithCommitId()
         {
-            Repolink link = new Repolink(
+            var link = new RepolinkAssertion(
                     "https://inf.pirckheimer-gymnasium.de/drupal/pgn_gallery/src/commit/25df4b141c3897a3671d494a4015ecaa00275b6d/pgn_gallery.module#L9-L21");
-            assertEquals(link.getLineRange().getBegin(), 9);
-            assertEquals(link.getLineRange().getEnd(), 21);
+            link.assertLineRange(9, 21);
         }
 
         @Test
         void testBranch()
         {
-            new Repolink(
+            var link = new RepolinkAssertion(
                     "https://inf.pirckheimer-gymnasium.de/engine-pi/engine-pi/src/branch/main/README.md");
+            link.assertHost("inf.pirckheimer-gymnasium.de");
+            link.assertOwner("engine-pi");
+            link.assertRepo("engine-pi");
+            link.assertFile("README.md");
         }
 
         @Test
         void testRaw()
         {
-            new Repolink(
+            var link = new RepolinkAssertion(
                     "https://inf.pirckheimer-gymnasium.de/engine-pi/engine-pi/raw/branch/main/README.md");
+            link.assertHost("inf.pirckheimer-gymnasium.de");
+            link.assertOwner("engine-pi");
+            link.assertRepo("engine-pi");
+            link.assertFile("README.md");
         }
 
         @Test
         void testQuery()
         {
-            new Repolink(
+            var link = new RepolinkAssertion(
                     "https://inf.pirckheimer-gymnasium.de/engine-pi/engine-pi/src/branch/main/README.md?display=source");
         }
     }
 
+    @Nested
     class GitlabTest
     {
         @Test
         void testRepoRootTwoLevels()
         {
-            new Repolink("https://gitlab.com/rak-n-rok/krake");
+            var link = new RepolinkAssertion(
+                    "https://gitlab.com/rak-n-rok/krake");
+            link.assertHost("gitlab.com");
         }
 
         @Test

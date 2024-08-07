@@ -20,6 +20,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Arrays;
 
 /**
  * Represents a link to a repository file in a web view, which is a URL that
@@ -75,6 +76,8 @@ public class Repolink
 
     private String branch;
 
+    private boolean raw;
+
     /**
      * For example:
      * {@code src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java}
@@ -107,23 +110,64 @@ public class Repolink
         }
         path = this.url.getPath();
         host = this.url.getHost();
-        String[] pathSegments = path.split("/");
-        owner = pathSegments[1];
-        repo = pathSegments[2];
+        String[] segments = path.split("/");
+        owner = segments[1];
+        repo = segments[2];
+        // Github
+        // for example:
         // https://github.com/Josef-Friedrich/javadoc-taglets/blob/main/src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java
-        Pattern pattern = Pattern.compile("[0-9a-f]{40}",
-                Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(path);
-        if (matcher.find())
+        // https://github.com/junit-team/junit5-samples/blob/425c27ecd9cefee5a1459e4cc9efd1c8390836e3/junit5-jupiter-starter-maven/pom.xml#L9-L15
+        if (host.equals("github.com") && segments.length > 5
+                && segments[3].equals("blob"))
         {
-            commitId = matcher.group(0);
-            file = path.substring(matcher.end() + 1);
+            if (isSha1(segments[4]))
+            {
+                commitId = segments[4];
+            }
+            else
+            {
+                branch = segments[4];
+            }
+            file = joinSegments(segments, 5);
+            // Forgejo
+            // https://inf.pirckheimer-gymnasium.de/drupal/pgn_gallery/src/commit/25df4b141c3897a3671d494a4015ecaa00275b6d/pgn_gallery.module#L9-L21
+            // https://inf.pirckheimer-gymnasium.de/engine-pi/engine-pi/src/branch/main/README.md
+            // https://inf.pirckheimer-gymnasium.de/engine-pi/engine-pi/raw/branch/main/README.md
         }
+        else if (segments.length > 5
+                && (segments[3].equals("src") || segments[3].equals("raw")))
+        {
+            if (segments[4].equals("branch"))
+            {
+                branch = segments[4];
+            }
+            else if (segments[4].equals("commit") && isSha1(segments[4]))
+            {
+                commitId = segments[4];
+            }
+            file = joinSegments(segments, 6);
+        }
+        // for example: #L9-L21
         String ref = this.url.getRef();
         if (ref != null)
         {
             lineRange = new LineRange(ref);
         }
+    }
+
+    private static boolean isSha1(String text)
+    {
+        Pattern pattern = Pattern.compile("[0-9a-f]{40}",
+                Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(text);
+        return matcher.find();
+    }
+
+    private static String joinSegments(String[] segments, int fromIndex)
+    {
+        String[] subset = Arrays.copyOfRange(segments, fromIndex,
+                segments.length);
+        return String.join("/", subset);
     }
 
     /**
@@ -183,6 +227,16 @@ public class Repolink
     public String getFile()
     {
         return file;
+    }
+
+    public String getBranch()
+    {
+        return branch;
+    }
+
+    public boolean isRaw()
+    {
+        return raw;
     }
 
     /**
