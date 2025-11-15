@@ -56,8 +56,8 @@
     </dependencies>
 
     <prerequisites>
-       <maven>3.8.6</maven>
-     </prerequisites>
+        <maven>3.8.6</maven>
+    </prerequisites>
 
     <build>
         <plugins>
@@ -110,9 +110,17 @@
                 <configuration>
                     <!-- to disable the "missing" warnings -->
                     <doclint>all,-missing</doclint>
-
-                    <taglet>rocks.friedrich.taglets.RepolinkTaglet</taglet>
-
+                    <taglets>
+                        <taglet>
+                            <tagletClass>rocks.friedrich.taglets.DrawioTaglet</tagletClass>
+                        </taglet>
+                        <taglet>
+                            <tagletClass>rocks.friedrich.taglets.RepolinkTaglet</tagletClass>
+                        </taglet>
+                        <taglet>
+                            <tagletClass>rocks.friedrich.taglets.YoutubeTaglet</tagletClass>
+                        </taglet>
+                    </taglets>
                     <tagletArtifact>
                         <groupId>rocks.friedrich</groupId>
                         <artifactId>taglets</artifactId>
