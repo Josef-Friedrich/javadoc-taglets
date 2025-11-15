@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Josef Friedrich.
+ * Copyright (c) 2025 Josef Friedrich.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

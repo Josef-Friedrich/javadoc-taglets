@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Josef Friedrich.
+ * Copyright (c) 2025 Josef Friedrich.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -64,6 +64,9 @@ public class YoutubeTaglet implements Taglet
     @Override
     public String toString(List<? extends DocTree> tags, Element element)
     {
-        return "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube-nocookie.com/embed/F0OkwXKcPSE?si=t_7pcVPmK6XW8r4g\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>";
+        // Watch video on YouTube
+        // Error 153
+        // Video player configuration error ???
+        return "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/Vr1uJvkSAyo\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>";
     }
 }
