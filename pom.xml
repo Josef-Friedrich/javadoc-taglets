@@ -8,6 +8,7 @@
     <artifactId>taglets</artifactId>
     <version>0.4.0</version>
 
+    <name>Javadoc Taglets</name>
     <description>Provides same Javadoc taglets, for example a @repolink tag for Javadoc to display formatted Github (or similar platforms) permalinks.</description>
     <url>https://github.com/Josef-Friedrich/javadoc-taglets</url>
     <licenses>
