@@ -30,6 +30,7 @@ import java.util.Set;
 import javax.lang.model.element.Element;
 
 import com.sun.source.doctree.DocTree;
+import com.sun.source.doctree.UnknownInlineTagTree;
 
 import jdk.javadoc.doclet.Taglet;
 
@@ -66,7 +67,11 @@ public class YoutubeTaglet implements Taglet
     {
         // Watch video on YouTube
         // Error 153
-        // Video player configuration error ???
-        return "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/Vr1uJvkSAyo\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>";
+        // Video player configuration error -> if javadoc is served over a local
+        // file in the browser.
+        String id = ((UnknownInlineTagTree) tags.get(0)).getContent().get(0)
+                .toString().trim();
+        return "<iframe src=\"https://www.youtube.com/embed/" + id
+                + " \" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>";
     }
 }

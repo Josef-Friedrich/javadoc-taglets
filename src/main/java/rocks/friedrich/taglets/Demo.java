@@ -40,9 +40,20 @@ class Demo
     }
 
     /**
-     * {@youtube }
+     * YouTube video:
+     *
+     * {@youtube Vr1uJvkSAyo}
      */
     void youtube()
+    {
+    }
+
+    /**
+     * YouTube video:
+     *
+     * {@youtube 03_uLEEWvH8}
+     */
+    void youtube2()
     {
     }
 }
