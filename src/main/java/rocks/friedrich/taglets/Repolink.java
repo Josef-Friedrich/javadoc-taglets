@@ -190,7 +190,7 @@ public class Repolink
      * Get the host name of the repository link URL.
      *
      * @return The host name of the repository link URL, for example:
-     *         {@code github.com}.
+     *     {@code github.com}.
      *
      * @see URL#getHost()
      */
@@ -235,7 +235,7 @@ public class Repolink
 
     /**
      * @return For example:
-     *         {@code src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java}
+     *     {@code src/main/java/rocks/friedrich/permalink_taglet/PermalinkTaglet.java}
      */
     public String getFile()
     {

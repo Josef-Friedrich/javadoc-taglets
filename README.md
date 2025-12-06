@@ -11,6 +11,27 @@ This package provides following Javadoc tags:
 
 [How to include this package in the javadoc configuration](https://maven.apache.org/plugins/maven-javadoc-plugin/examples/taglet-configuration.html)
 
+## Configuration
+
+```xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-javadoc-plugin</artifactId>
+    <version>3.12.0</version>
+    <configuration>
+        <tagletArtifacts>
+            <tagletArtifact>
+                <groupId>rocks.friedrich</groupId>
+                <artifactId>taglets</artifactId>
+                <version>0.4.0</version>
+            </tagletArtifact>
+        </tagletArtifacts>
+    </configuration>
+</plugin>
+```
+
+Wrap the following configurations into `<configuration/>` parameter:
+
 ```xml
 <plugin>
     <groupId>org.apache.maven.plugins</groupId>
@@ -21,6 +42,10 @@ This package provides following Javadoc tags:
     </configuration>
 </plugin>
 ```
+
+### One Taglet
+
+For one known Taglet, just use the `<taglet/>` parameter:
 
 ```xml
 <configuration>
@@ -33,10 +58,12 @@ This package provides following Javadoc tags:
 </configuration>
 ```
 
+### Several Taglets
+
+To include several Taglets in the same Taglet artifact, you could use the `<taglets/>` and the `<tagletArtifact/>` parameters:
+
 ```xml
 <configuration>
-    <!-- to disable the "missing" warnings -->
-    <doclint>all,-missing</doclint>
     <taglets>
         <taglet>
             <tagletClass>rocks.friedrich.taglets.DrawioTaglet</tagletClass>
@@ -53,5 +80,19 @@ This package provides following Javadoc tags:
         <artifactId>taglets</artifactId>
         <version>0.4.0</version>
     </tagletArtifact>
+</configuration>
+```
+
+To auto-detect Taglet class names, you could use the `<tagletArtifacts/>` parameter:
+
+```xml
+<configuration>
+    <tagletArtifacts>
+        <tagletArtifact>
+            <groupId>rocks.friedrich</groupId>
+            <artifactId>taglets</artifactId>
+            <version>0.4.0</version>
+        </tagletArtifact>
+    </tagletArtifacts>
 </configuration>
 ```
